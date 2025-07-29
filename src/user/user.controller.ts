@@ -1,13 +1,14 @@
-import { Controller, Get, Post } from '@nestjs/common';
-import { UserService } from './user.service';
+import { Controller, Get, Post, Query } from '@nestjs/common';
+import { userInfo, UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('/checkLogin')
-  checkLogin() {
-    return this.userService.checkLogin();
+  checkLogin(@Query() query: any) {
+    let userId: string = String(query.userId);
+    return this.userService.checkLogin(userId);
   }
 
   @Post('/login')
